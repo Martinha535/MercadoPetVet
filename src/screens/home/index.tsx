@@ -17,20 +17,20 @@ import { useNavigation } from "@react-navigation/native";
 export interface InputRoundProps { }
 
 
-// Função para acessar
-const enviar = async (dados: any) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  if (dados.email == "teste@teste.com" && dados.senha == "123456")
-    alert("logado com sucesso");
-  else alert("Email ou senha incorreta");
-};
 
 
 export function HomeScreen(props: InputRoundProps) {
   const nav = useNavigation();
   //let email:'string' ='';
   //let senha:'string' = '';
-
+  // Função para acessar
+  const enviar = async (dados: any) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    if (dados.email == "teste@teste.com" && dados.senha == "123456")
+      //@ts-ignore
+      nav.navigate("principal")
+    else alert("Email ou senha incorreta");
+  };
   return (
     <View
       style={{
@@ -146,10 +146,10 @@ export function HomeScreen(props: InputRoundProps) {
       </View>
 
       <Text>Ainda não tem conta! &nbsp;
-        <TouchableOpacity onPress={()=>{
+        <TouchableOpacity onPress={() => {
           //@ts-ignore
           nav.navigate("cadastro");
-          
+
         }}>
           <Text>Crie agora!</Text>
         </TouchableOpacity>
