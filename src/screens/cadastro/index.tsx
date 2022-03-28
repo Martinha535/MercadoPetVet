@@ -7,6 +7,8 @@ import {
   Alert,
   ActivityIndicator,
   Image,
+  ToastAndroid,
+  Platform,
 } from "react-native";
 
 //import Button from '../Components/Button';
@@ -17,37 +19,76 @@ import { useNavigation } from "@react-navigation/native";
 
 export interface InputRoundProps {
   // teste
-
 }
-
-
 
 export function CadastroScreen(props: InputRoundProps) {
   const nav = useNavigation();
 
   // Função para acessar
   const enviar = async (dados: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    //@ts-ignore
-    nav.navigate("principal")
-  };
+    if (dados.email.split("@").length == 2) {
+      if (dados.senha >= 6) {
+        if (dados.senha2 === dados.senha) {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          if (Platform.OS == "android")
+            ToastAndroid.show("Cadastrado com sucesso!", ToastAndroid.BOTTOM);
+          else if (Platform.OS == "ios")
+            Alert.alert("Sucesso!", "Você foi cadastrado!");
+          else {
+            alert("Sucesso! Você foi cadastrado!");
+          }
+          //@ts-ignore
 
+          nav.navigate("principal");
+        } else {
+          if (Platform.OS == "android")
+            ToastAndroid.show("As senhas não conferem!", ToastAndroid.BOTTOM);
+          else if (Platform.OS == "ios")
+            Alert.alert("ERRO!", "As senhas não conferem!");
+          else {
+            alert("Erro, As senhas não conferem!");
+          }
+        }
+      } else {
+        if (Platform.OS == "android")
+          ToastAndroid.show(
+            "A senha requer no mínimo 6 caracteres",
+            ToastAndroid.BOTTOM
+          );
+        else if (Platform.OS == "ios")
+          Alert.alert("ERRO!", "A senha requer ao mínimo 6 caracteres!");
+        else {
+          alert("Erro, A senha requer ao mínimo 6 caracteres");
+        }
+      }
+    } else {
+      if (Platform.OS == "android")
+        ToastAndroid.show("ERRO! E-mail inválido!", ToastAndroid.BOTTOM);
+      else if (Platform.OS == "ios") Alert.alert("ERRO!", "E-mail inválido!");
+      else {
+        alert("Erro, E-mail Inválido");
+      }
+    }
+  };
 
   //1 sempre é a página inicial
 
-  const [pagina, setPagina] = React.useState(1)
+  const [pagina, setPagina] = React.useState(1);
 
   return (
     <Formik
-      initialValues={{ email: "", senha: "", nomeCompleto: "", endereco: "", complemento: "", bairro: "", cep: "", cidade: "", uf: "" }}
-      validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .required("Informe o email")
-          .email("E-mail não válido"),
-        senha: Yup.string()
-          .required("Informe a senha")
-          .min(6, "A senha precisa ter 6 caracteres"),
-      })}
+      initialValues={{
+        email: "",
+        senha: "",
+        nomeCompleto: "",
+        endereco: "",
+        complemento: "",
+        bairro: "",
+        cep: "",
+        cidade: "",
+        uf: "",
+      }}
+      validationSchema={Yup.object().shape({})}
       onSubmit={enviar}
     >
       {({
@@ -60,8 +101,7 @@ export function CadastroScreen(props: InputRoundProps) {
         handleBlur,
       }) => (
         <>
-
-          {pagina == 1 &&
+          {pagina == 1 && (
             <View
               style={{
                 marginTop: 30,
@@ -70,13 +110,12 @@ export function CadastroScreen(props: InputRoundProps) {
                 justifyContent: "space-evenly",
                 alignItems: "center",
               }}
-            //aqui fica apenas o background da tela!
+              //aqui fica apenas o background da tela!
             >
               <Image
                 style={{ width: 180, height: 70 }}
-                source={require('../../../assets/cadastrese.png')}
+                source={require("../../../assets/cadastrese.png")}
               />
-
 
               <TextInput
                 onChangeText={handleChange("nomeCompleto")}
@@ -94,7 +133,6 @@ export function CadastroScreen(props: InputRoundProps) {
               <TextInput
                 onChangeText={handleChange("endereco")}
                 style={{
-
                   backgroundColor: "white",
                   width: "90%",
                   height: 60,
@@ -108,7 +146,6 @@ export function CadastroScreen(props: InputRoundProps) {
               <TextInput
                 onChangeText={handleChange("complemento")}
                 style={{
-
                   backgroundColor: "white",
                   width: "90%",
                   height: 60,
@@ -122,7 +159,6 @@ export function CadastroScreen(props: InputRoundProps) {
               <TextInput
                 onChangeText={handleChange("bairro")}
                 style={{
-
                   backgroundColor: "white",
                   width: "90%",
                   height: 60,
@@ -136,7 +172,6 @@ export function CadastroScreen(props: InputRoundProps) {
               <TextInput
                 onChangeText={handleChange("cep")}
                 style={{
-
                   backgroundColor: "white",
                   width: "90%",
                   height: 60,
@@ -150,7 +185,6 @@ export function CadastroScreen(props: InputRoundProps) {
               <TextInput
                 onChangeText={handleChange("cidade")}
                 style={{
-
                   backgroundColor: "white",
                   width: "90%",
                   height: 60,
@@ -164,7 +198,6 @@ export function CadastroScreen(props: InputRoundProps) {
               <TextInput
                 onChangeText={handleChange("uf")}
                 style={{
-
                   backgroundColor: "white",
                   width: "90%",
                   height: 60,
@@ -174,7 +207,6 @@ export function CadastroScreen(props: InputRoundProps) {
                 }}
                 placeholder="UF"
               />
-
 
               <TouchableOpacity
                 style={{
@@ -186,20 +218,16 @@ export function CadastroScreen(props: InputRoundProps) {
                   borderRadius: 15,
                 }}
                 onPress={() => {
+                  let pag = pagina;
 
-                  let pag = pagina
-
-                  setPagina(++pag)
-                }
-                }
+                  setPagina(++pag);
+                }}
               >
                 <Text>próximo</Text>
               </TouchableOpacity>
-
             </View>
-
-          }
-          {pagina == 2 &&
+          )}
+          {pagina == 2 && (
             <View
               style={{
                 marginTop: 30,
@@ -208,13 +236,11 @@ export function CadastroScreen(props: InputRoundProps) {
                 justifyContent: "space-evenly",
                 alignItems: "center",
               }}
-
             >
               <Text>Criação de conta de acesso</Text>
               <TextInput
                 onChangeText={handleChange("email")}
                 style={{
-
                   backgroundColor: "white",
                   width: "90%",
                   height: 60,
@@ -228,7 +254,6 @@ export function CadastroScreen(props: InputRoundProps) {
               <TextInput
                 onChangeText={handleChange("senha")}
                 style={{
-
                   backgroundColor: "white",
                   width: "90%",
                   height: 60,
@@ -240,8 +265,8 @@ export function CadastroScreen(props: InputRoundProps) {
                 placeholder="Senha"
               />
               <TextInput
+                onChangeText={handleChange("senha2")}
                 style={{
-
                   backgroundColor: "white",
                   width: "90%",
                   height: 60,
@@ -263,15 +288,10 @@ export function CadastroScreen(props: InputRoundProps) {
                   borderRadius: 15,
                 }}
                 onPress={() => {
-
-                  let pag = pagina
-                  setPagina(--pag)
-                }
-                }
+                  let pag = pagina;
+                  setPagina(--pag);
+                }}
               >
-
-
-
                 <Text>Anterior</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -288,12 +308,9 @@ export function CadastroScreen(props: InputRoundProps) {
                   nav.navigate("home")
                 }
               >
-
-
-
                 <Text>Voltar para tela de login</Text>
               </TouchableOpacity>
-              {!isSubmitting &&
+              {!isSubmitting && (
                 <TouchableOpacity
                   style={{
                     justifyContent: "center",
@@ -305,13 +322,10 @@ export function CadastroScreen(props: InputRoundProps) {
                   }}
                   onPress={() => handleSubmit()}
                 >
-
-
-
                   <Text>Cadastrar minha conta</Text>
                 </TouchableOpacity>
-              }
-              {isSubmitting &&
+              )}
+              {isSubmitting && (
                 <View
                   style={{
                     justifyContent: "center",
@@ -321,24 +335,14 @@ export function CadastroScreen(props: InputRoundProps) {
                     backgroundColor: "rgb(187,136,59)",
                     borderRadius: 15,
                   }}
-
                 >
-                  <ActivityIndicator>
-
-                  </ActivityIndicator>
-
-
-
-
+                  <ActivityIndicator></ActivityIndicator>
                 </View>
-              }
-
-
+              )}
             </View>
-          }
+          )}
         </>
       )}
     </Formik>
-
   );
 }

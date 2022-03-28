@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
+  ToastAndroid,
+  Platform,
 } from "react-native";
 
 //import Button from '../Components/Button';
@@ -14,10 +16,7 @@ import * as Yup from "yup";
 import { Formik, validateYupSchema } from "formik";
 import { useNavigation } from "@react-navigation/native";
 
-export interface InputRoundProps { }
-
-
-
+export interface InputRoundProps {}
 
 export function HomeScreen(props: InputRoundProps) {
   const nav = useNavigation();
@@ -25,11 +24,34 @@ export function HomeScreen(props: InputRoundProps) {
   //let senha:'string' = '';
   // Função para acessar
   const enviar = async (dados: any) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    if (dados.email == "teste@teste.com" && dados.senha == "123456")
-      //@ts-ignore
-      nav.navigate("principal")
-    else alert("Email ou senha incorreta");
+    if (dados.email.split("@").length == 2) {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      if (dados.email == "teste@teste.com" && dados.senha == "123456") {
+        if (Platform.OS == "android")
+          ToastAndroid.show("logado com sucesso!", ToastAndroid.BOTTOM);
+        else if (Platform.OS == "ios")
+          Alert.alert("Sucesso!", "Você está conectado!");
+        else {
+          alert("Sucesso! Você está conectado!");
+        }
+        //@ts-ignore
+        nav.navigate("principal");
+      } else if (Platform.OS == "android")
+        ToastAndroid.show("E-mail ou senha incorretos!", ToastAndroid.BOTTOM);
+      else if (Platform.OS == "ios")
+        Alert.alert("Erro!", "E-mail ou senha incorretos!");
+      else {
+        alert("E-mail ou senha incorretos!");
+      }
+    } else {
+      if (Platform.OS == "android")
+        ToastAndroid.show("E-mail inválido!", ToastAndroid.BOTTOM);
+      else if (Platform.OS == "ios") Alert.alert("Erro!", "E-mail inválido!");
+      else {
+        alert("E-mail inválido!");
+      }
+    }
   };
   return (
     <View
@@ -52,14 +74,7 @@ export function HomeScreen(props: InputRoundProps) {
       >
         <Formik
           initialValues={{ email: "", senha: "" }}
-          validationSchema={Yup.object().shape({
-            email: Yup.string()
-              .required("Informe o email")
-              .email("E-mail não válido"),
-            senha: Yup.string()
-              .required("Informe a senha")
-              .min(6, "A senha precisa ter 6 caracteres"),
-          })}
+          validationSchema={Yup.object().shape({})}
           onSubmit={enviar}
         >
           {({
@@ -82,9 +97,8 @@ export function HomeScreen(props: InputRoundProps) {
                   borderRadius: 15,
                   borderWidth: 2,
                 }}
-
                 placeholder="E-mail"
-              //leftIcon={{name:'person', color:'black'}}
+                //leftIcon={{name:'person', color:'black'}}
               />
               {errors.email && (
                 <Text style={{ color: "#f00" }}>
@@ -103,7 +117,7 @@ export function HomeScreen(props: InputRoundProps) {
                 }}
                 secureTextEntry //<-- ativa caracteres ocultos (***)
                 placeholder="Senha"
-              //leftIcon={{name:'lock', color:'black'}}
+                //leftIcon={{name:'lock', color:'black'}}
               />
               {errors.senha && (
                 <Text style={{ color: "#f00" }}>
@@ -145,12 +159,14 @@ export function HomeScreen(props: InputRoundProps) {
         </Formik>
       </View>
 
-      <Text>Ainda não tem conta! &nbsp;
-        <TouchableOpacity onPress={() => {
-          //@ts-ignore
-          nav.navigate("cadastro");
-
-        }}>
+      <Text>
+        Ainda não tem conta! &nbsp;
+        <TouchableOpacity
+          onPress={() => {
+            //@ts-ignore
+            nav.navigate("cadastro");
+          }}
+        >
           <Text>Crie agora!</Text>
         </TouchableOpacity>
       </Text>
