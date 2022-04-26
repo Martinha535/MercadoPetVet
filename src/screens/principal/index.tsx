@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Icon, Image } from "react-native-elements";
 import { StatusBar } from "expo-status-bar";
 import HideWithKeyboard from "react-native-hide-with-keyboard";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 export interface InputRoundProps {}
 
@@ -25,10 +26,126 @@ export function PrincipalScreen(props: InputRoundProps) {
   const [cor, setCor] = React.useState("rgb(187, 136, 59)");
   const [cor2, setCor2] = React.useState("rgb(255, 255, 255)");
   const [pagina, setPagina] = React.useState(1);
+  const [visibilidade, setVisibilidade] = React.useState("hidden");
 
   return (
     <>
       <StatusBar hidden />
+      <div style={{ visibility: visibilidade }} id="menu-lateral">
+        <div
+          style={{
+            display: "flex",
+            width: "70%",
+            height: "100%",
+            backgroundColor: "#fff",
+            position: "absolute",
+            zIndex: "2",
+            flexDirection: "column",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              height: 70,
+              width: "100%",
+
+              alignItems: "center",
+            }}
+          >
+            <Icon
+              onPress={() => {
+                setVisibilidade("hidden");
+              }}
+              size={50}
+              name="arrow-back"
+              type="ionicon"
+            />
+          </div>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "rgb(228, 228, 228)",
+              display: "flex",
+              height: 70,
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              borderTopWidth: 1,
+              //borderBottomWidth: 1,
+            }}
+            onPress={() => {
+              setVisibilidade("hidden");
+            }}
+          >
+            <Text>Página inicial</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "rgb(248, 248, 248)",
+              display: "flex",
+              height: 70,
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              borderTopWidth: 1,
+              //borderBottomWidth: 1,
+            }}
+            onPress={() => {
+              //@ts-ignore
+              nav.navigate("racoes")
+            }}
+          >
+            <Text>Rações</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "rgb(248, 248, 248)",
+              display: "flex",
+              height: 70,
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              borderTopWidth: 1,
+              //borderBottomWidth: 1,
+            }}
+            onPress={() => {
+              //@ts-ignore
+              nav.navigate("biscoitos")
+            }}
+          >
+            <Text>Biscoitos</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "rgb(248, 248, 248)",
+              display: "flex",
+              height: 70,
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              borderTopWidth: 1,
+              borderBottomWidth: 1,
+            }}
+            onPress={() => {
+              //@ts-ignore
+              nav.navigate("acessorios")
+            }}
+          >
+            <Text>Acessórios</Text>
+          </TouchableOpacity>
+        </div>
+        <TouchableOpacity
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            position: "absolute",
+            zIndex: "1",
+          }}
+          onPress={() => {
+            setVisibilidade("hidden");
+          }}
+        ></TouchableOpacity>
+      </div>
 
       <View
         style={{
@@ -46,7 +163,15 @@ export function PrincipalScreen(props: InputRoundProps) {
           elevation: 5,
         }}
       >
-        <Icon color={"white"} size={50} name="menu" type="ionicon" />
+        <Icon
+          onPress={() => {
+            setVisibilidade("visible");
+          }}
+          color={"white"}
+          size={50}
+          name="menu"
+          type="ionicon"
+        />
         <Image
           style={{ width: 160, height: 50, margin: 10 }}
           source={require("../../../assets/logo.png")}
@@ -65,6 +190,8 @@ export function PrincipalScreen(props: InputRoundProps) {
         <View
           style={{
             flex: 1,
+            width: "100%",
+            alignItems: "center",
             justifyContent: "space-evenly",
           }}
         >
@@ -108,13 +235,15 @@ export function PrincipalScreen(props: InputRoundProps) {
           <View
             style={{
               flexDirection: "row",
-              width: "90%",
+              display: "flex",
+              //backgroundColor: "#f0f",
+              minWidth: "90%",
             }}
           >
             <TouchableOpacity
               style={{
                 height: 60,
-                width: "50%",
+                flex: 1,
                 backgroundColor: cor,
                 borderWidth: 2,
                 borderTopLeftRadius: 15,
@@ -134,7 +263,7 @@ export function PrincipalScreen(props: InputRoundProps) {
             <TouchableOpacity
               style={{
                 height: 60,
-                width: "50%",
+                flex: 1,
                 backgroundColor: cor2,
                 borderWidth: 2,
                 borderTopRightRadius: 15,
@@ -156,7 +285,7 @@ export function PrincipalScreen(props: InputRoundProps) {
 
         {pagina == 1 && (
           // < HideWithKeyboard >
-          <View style={{ flex: 2.5, minWidth: "100%",  }}>
+          <View style={{ flex: 2.5, minWidth: "100%" }}>
             <View
               style={{
                 flex: 1,
@@ -174,7 +303,7 @@ export function PrincipalScreen(props: InputRoundProps) {
                 elevation: 5,
               }}
             >
-              <View style={{justifyContent:"space-evenly"}}>
+              <View style={{ justifyContent: "space-evenly" }}>
                 <Image
                   style={{ width: 140, height: 140, margin: 10 }}
                   source={require("../../../assets/001.png")}
@@ -184,14 +313,16 @@ export function PrincipalScreen(props: InputRoundProps) {
                   source={require("../../../assets/002.png")}
                 />
               </View>
-              <View style={{flex:1, justifyContent:"space-between"}}>
-                <Text style={{ margin:10, fontSize: 17  }}>
-                  Rações, brinquedos, acessórios, shampoos, colônias, roupinhas, biscoitos diversos, petiscos, sachês, medicamentos veterinários, camas, produtos em geral para pets.
+              <View style={{ flex: 1, justifyContent: "space-between" }}>
+                <Text style={{ margin: 10, fontSize: 17 }}>
+                  Rações, brinquedos, acessórios, shampoos, colônias, roupinhas,
+                  biscoitos diversos, petiscos, sachês, medicamentos
+                  veterinários, camas, produtos em geral para pets.
                 </Text>
-                <View style={{ alignItems:"flex-end", width:"100%"}}>
-                <TouchableOpacity>
-                <Icon  size={50} name="chevron-right" type="FontAwesome" />
-                </TouchableOpacity>
+                <View style={{ alignItems: "flex-end", width: "100%" }}>
+                  <TouchableOpacity>
+                    <Icon size={50} name="chevron-right" type="FontAwesome" />
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -199,7 +330,8 @@ export function PrincipalScreen(props: InputRoundProps) {
           // </HideWithKeyboard>
         )}
 
-        {pagina == 2 && <View style={{ flex: 2.5, minWidth: "100%",  }}>
+        {pagina == 2 && (
+          <View style={{ flex: 2.5, minWidth: "100%" }}>
             <View
               style={{
                 flex: 1,
@@ -216,10 +348,9 @@ export function PrincipalScreen(props: InputRoundProps) {
                 shadowOpacity: 0.25,
                 elevation: 5,
               }}
-            >
-              
-            </View>
-          </View>}
+            ></View>
+          </View>
+        )}
       </View>
     </>
   );
