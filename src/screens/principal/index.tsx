@@ -286,46 +286,7 @@ export function PrincipalScreen(props: InputRoundProps) {
         {pagina == 1 && (
           // < HideWithKeyboard >
           <View style={{ flex: 2.5, minWidth: "100%" }}>
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: "#fff",
-                flexDirection: "row",
-                margin: "5%",
-                borderRadius: 10,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 3,
-                },
-                minHeight: 320,
-                shadowOpacity: 0.25,
-                elevation: 5,
-              }}
-            >
-              <View style={{ justifyContent: "space-evenly" }}>
-                <Image
-                  style={{ width: 140, height: 140, margin: 10 }}
-                  source={require("../../../assets/001.png")}
-                />
-                <Image
-                  style={{ width: 140, height: 140, margin: 10 }}
-                  source={require("../../../assets/002.png")}
-                />
-              </View>
-              <View style={{ flex: 1, justifyContent: "space-between" }}>
-                <Text style={{ margin: 10, fontSize: 17 }}>
-                  Rações, brinquedos, acessórios, shampoos, colônias, roupinhas,
-                  biscoitos diversos, petiscos, sachês, medicamentos
-                  veterinários, camas, produtos em geral para pets.
-                </Text>
-                <View style={{ alignItems: "flex-end", width: "100%" }}>
-                  <TouchableOpacity>
-                    <Icon size={50} name="chevron-right" type="FontAwesome" />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
+            git
           </View>
           // </HideWithKeyboard>
         )}
