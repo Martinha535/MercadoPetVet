@@ -26,33 +26,20 @@ export function RacoesScreen(props: InputRoundProps) {
   const nav = useNavigation();
   const [produtos, setProdutos] = React.useState([
     {
-      titulo: "Racao",
-      preco: "10,00",
+      titulo: "Ração marca 1",
+      preco: "16,99",
       foto: null,
       id: "1",
       precoPromocional: null,
     },
     {
-      titulo: "Biscoito",
-      preco: "15,00",
+      titulo: "Ração marca 2",
+      preco: "110,00",
       foto: null,
       id: "2",
-      precoPromocional: "10,00",
+      precoPromocional: "89,99",
     },
-    {
-      titulo: "Acessório",
-      preco: "15,00",
-      foto: null,
-      id: "2",
-      precoPromocional: "10,00",
-    },
-    {
-      titulo: "Acessório",
-      preco: "15,00",
-      foto: null,
-      id: "2",
-      precoPromocional: "10,00",
-    },
+    
   ]);
 
   return (
@@ -111,7 +98,7 @@ export function RacoesScreen(props: InputRoundProps) {
                 flexDirection: "row",
                 width: "85vw",
                 height: 170,
-                margin: "10vw",
+                margin: "2vw",
                 padding: 10,
                 borderRadius: 10,
                 shadowColor: "#000",
@@ -166,7 +153,7 @@ export function RacoesScreen(props: InputRoundProps) {
                   </View>
                 )}
                 <View style={{ alignItems: "flex-end", width: "100%" }}>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={()=> nav.navigate("produto")}>
                     <Icon size={30} name="chevron-right" type="FontAwesome" />
                   </TouchableOpacity>
                 </View>

@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   ToastAndroid,
   Platform,
+  Vibration,
 } from "react-native";
 
 //import Button from '../Components/Button';
@@ -37,17 +38,19 @@ export function HomeScreen(props: InputRoundProps) {
         }
         //@ts-ignore
         nav.navigate("principal");
-      } else if (Platform.OS == "android")
+      } else if (Platform.OS == "android") {
+        Vibration.vibrate([100, 100]);
         ToastAndroid.show("E-mail ou senha incorretos!", ToastAndroid.BOTTOM);
-      else if (Platform.OS == "ios")
+      } else if (Platform.OS == "ios")
         Alert.alert("Erro!", "E-mail ou senha incorretos!");
       else {
         alert("E-mail ou senha incorretos!");
       }
     } else {
-      if (Platform.OS == "android")
+      if (Platform.OS == "android") {
+        Vibration.vibrate([100, 100]);
         ToastAndroid.show("E-mail inválido!", ToastAndroid.BOTTOM);
-      else if (Platform.OS == "ios") Alert.alert("Erro!", "E-mail inválido!");
+      } else if (Platform.OS == "ios") Alert.alert("Erro!", "E-mail inválido!");
       else {
         alert("E-mail inválido!");
       }
