@@ -51,9 +51,9 @@ export function CompraScreen(props: CompraScreenProps) {
         />
         <Icon color={"rgba(0,0,0,0)"} size={50} name="menu" type="ionicon" />
       </View>
-      <View
-        style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-      ></View>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        
+      </View>
     </View>
   );
 }
