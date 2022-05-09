@@ -31,28 +31,29 @@ export function PrincipalScreen(props: InputRoundProps) {
   return (
     <>
       <StatusBar hidden />
-      <div style={{ visibility: visibilidade }} id="menu-lateral">
-        <div
+      {visibilidade == "visible" &&
+      <View style={{ position: "absolute", zIndex: 2, width: '100%', height: '100%', flexDirection: 'row'}}>
+        <View
           style={{
             display: "flex",
             width: "70%",
             height: "100%",
             backgroundColor: "#fff",
-            position: "absolute",
-            zIndex: "2",
+
             flexDirection: "column",
           }}
         >
-          <div
+          <View
             style={{
               display: "flex",
               height: 70,
               width: "100%",
 
-              alignItems: "center",
+              alignItems: "flex-start",
             }}
           >
             <Icon
+            style={{marginLeft: 10}}
               onPress={() => {
                 setVisibilidade("hidden");
               }}
@@ -60,7 +61,7 @@ export function PrincipalScreen(props: InputRoundProps) {
               name="arrow-back"
               type="ionicon"
             />
-          </div>
+          </View>
           <TouchableOpacity
             style={{
               backgroundColor: "rgb(228, 228, 228)",
@@ -91,7 +92,7 @@ export function PrincipalScreen(props: InputRoundProps) {
             }}
             onPress={() => {
               //@ts-ignore
-              nav.navigate("racoes")
+              nav.navigate("racoes");
             }}
           >
             <Text>Rações</Text>
@@ -109,7 +110,7 @@ export function PrincipalScreen(props: InputRoundProps) {
             }}
             onPress={() => {
               //@ts-ignore
-              nav.navigate("biscoitos")
+              nav.navigate("biscoitos");
             }}
           >
             <Text>Biscoitos</Text>
@@ -127,25 +128,25 @@ export function PrincipalScreen(props: InputRoundProps) {
             }}
             onPress={() => {
               //@ts-ignore
-              nav.navigate("acessorios")
+              nav.navigate("acessorios");
             }}
           >
             <Text>Acessórios</Text>
           </TouchableOpacity>
-        </div>
+        </View>
         <TouchableOpacity
           style={{
             width: "100%",
             height: "100%",
             backgroundColor: "rgba(0,0,0,0.5)",
-            position: "absolute",
-            zIndex: "1",
+           
           }}
           onPress={() => {
             setVisibilidade("hidden");
           }}
         ></TouchableOpacity>
-      </div>
+      </View>
+      }
 
       <View
         style={{
@@ -165,7 +166,12 @@ export function PrincipalScreen(props: InputRoundProps) {
       >
         <Icon
           onPress={() => {
-            setVisibilidade("visible");
+            if(visibilidade == "hidden"){
+              setVisibilidade("visible");
+            }else{
+              setVisibilidade("hidden");
+            }
+            
           }}
           color={"white"}
           size={50}
@@ -286,46 +292,46 @@ export function PrincipalScreen(props: InputRoundProps) {
         {pagina == 1 && (
           // < HideWithKeyboard >
           <View style={{ flex: 2.5, minWidth: "100%" }}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: "#fff",
-              flexDirection: "row",
-              margin: "5%",
-              borderRadius: 10,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 3,
-              },
-              minHeight: 320,
-              shadowOpacity: 0.25,
-              elevation: 5,
-            }}
-          >
-            <View style={{ justifyContent: "space-evenly" }}>
-              <Image
-                style={{ width: 140, height: 140, margin: 10 }}
-                source={require("../../../assets/001.png")}
-              />
-              <Image
-                style={{ width: 140, height: 140, margin: 10 }}
-                source={require("../../../assets/002.png")}
-              />
-            </View>
-            <View style={{ flex: 1, justifyContent: "space-between" }}>
-              <Text style={{ margin: 10, fontSize: 17 }}>
-                Rações, brinquedos, acessórios, shampoos, colônias, roupinhas,
-                biscoitos diversos, petiscos, sachês, medicamentos
-                veterinários, camas, produtos em geral para pets.
-              </Text>
-              <View style={{ alignItems: "flex-end", width: "100%" }}>
-                <TouchableOpacity>
-                  <Icon size={50} name="chevron-right" type="FontAwesome" />
-                </TouchableOpacity>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "#fff",
+                flexDirection: "row",
+                margin: "5%",
+                borderRadius: 10,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 3,
+                },
+                minHeight: 320,
+                shadowOpacity: 0.25,
+                elevation: 5,
+              }}
+            >
+              <View style={{ justifyContent: "space-evenly" }}>
+                <Image
+                  style={{ width: 140, height: 140, margin: 10 }}
+                  source={require("../../../assets/001.png")}
+                />
+                <Image
+                  style={{ width: 140, height: 140, margin: 10 }}
+                  source={require("../../../assets/002.png")}
+                />
+              </View>
+              <View style={{ flex: 1, justifyContent: "space-between" }}>
+                <Text style={{ margin: 10, fontSize: 17 }}>
+                  Rações, brinquedos, acessórios, shampoos, colônias, roupinhas,
+                  biscoitos Viewersos, petiscos, sachês, medicamentos
+                  veterinários, camas, produtos em geral para pets.
+                </Text>
+                <View style={{ alignItems: "flex-end", width: "100%" }}>
+                  <TouchableOpacity>
+                    <Icon size={50} name="chevron-right" type="FontAwesome" />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
           </View>
           // </HideWithKeyboard>
         )}

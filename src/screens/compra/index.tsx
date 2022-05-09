@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
-import { View, Text, Picker } from "react-native";
+import { View, Text, Picker, Dimensions } from "react-native";
 import { Icon, Image } from "react-native-elements";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 
@@ -10,6 +10,15 @@ export interface CompraScreenProps {}
 export function CompraScreen(props: CompraScreenProps) {
   const nav = useNavigation();
   const [formaPgto, setFormaPgto] = React.useState("0");
+  // Dimensions e uma biblioteca que dá acesso ao recurso nativo
+  // responsável por determinar a altura (h) e largura (w) para utilizar
+  // nos componente ou outros fins
+  //////////////////////////////////////////////
+  // W é a largura atual da tela
+  const w = Dimensions.get("window").width;
+  // H é a altura atual da tela (caso queira usar 90% da altura, utiliza-se
+  // H*0.9 para utilizar o conceito de porcentagem)
+  const h = Dimensions.get("window").height;
   const [confirmacao, setConfirmacao] = React.useState("0");
   return (
     <View
@@ -442,7 +451,7 @@ export function CompraScreen(props: CompraScreenProps) {
                   automaticamente.
                 </Text>
               </View>
-            )}{" "}
+            )}
             {formaPgto == "3" && (
               <View style={{ justifyContent: "center", alignItems: "center" }}>
                 <Text style={{ textAlign: "center", width: "90%" }}>
@@ -472,17 +481,20 @@ export function CompraScreen(props: CompraScreenProps) {
               style={{
                 justifyContent: "center",
                 alignItems: "center",
-                width: "80vw",
+                width: w * 0.8,
                 height: 60,
                 marginTop: 10,
                 backgroundColor: "rgb(187,136,59)",
                 borderRadius: 15,
               }}
-              onPress={() => {
-                setConfirmacao('1')
-              }}
             >
-              <Text>Finalizar</Text>
+              <Text
+                onPress={() => {
+                  setConfirmacao("1");
+                }}
+              >
+                Finalizar
+              </Text>
             </TouchableOpacity>
           </View>
         )}
@@ -492,11 +504,11 @@ export function CompraScreen(props: CompraScreenProps) {
           >
             <View
               style={{
-                padding:20,
+                padding: 20,
                 alignItems: "center",
                 justifyContent: "space-around",
                 width: "100%",
-                backgroundColor:'white',
+                backgroundColor: "white",
                 borderRadius: 10,
                 shadowColor: "#000",
                 shadowOffset: {
@@ -508,27 +520,34 @@ export function CompraScreen(props: CompraScreenProps) {
               }}
             >
               <Text>PEDIDO Nº - 31376017</Text>
-              <Text style={{marginVertical: 20}}>Bolinha emborrachada com barulho</Text>
+              <Text style={{ marginVertical: 20 }}>
+                Bolinha emborrachada com barulho
+              </Text>
               <Text>Total do pedido: R$14,99</Text>
-              <Text style={{marginVertical: 20}}>COMPRA FINALIZADA</Text>
+              <Text style={{ marginVertical: 20 }}>COMPRA FINALIZADA</Text>
               <Text style={{ color: "#0f0" }}>PAGAMENTO CONFIRMADO</Text>
-              <Text style={{marginVertical: 20}}>STATUS: PREPARANDO ENVIO</Text>
+              <Text style={{ marginVertical: 20 }}>
+                STATUS: PREPARANDO ENVIO
+              </Text>
             </View>
             <TouchableOpacity
               style={{
                 justifyContent: "center",
                 alignItems: "center",
-                width: "80vw",
+                width: w * 0.8,
                 height: 60,
                 marginTop: 10,
                 backgroundColor: "rgb(187,136,59)",
                 borderRadius: 15,
               }}
-              onPress={() => {
-                setConfirmacao("0")
-              }}
             >
-              <Text>Voltar</Text>
+              <Text
+                onPress={() => {
+                  setConfirmacao("0");
+                }}
+              >
+                Voltar
+              </Text>
             </TouchableOpacity>
           </View>
         )}

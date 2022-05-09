@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   ToastAndroid,
   Platform,
+  Dimensions,
 } from "react-native";
 
 //import Button from '../Components/Button';
@@ -24,6 +25,15 @@ export interface InputRoundProps {}
 export function BiscoitosScreen(props: InputRoundProps) {
   
     const nav = useNavigation();
+    // Dimensions e uma biblioteca que dá acesso ao recurso nativo
+  // responsável por determinar a altura (h) e largura (w) para utilizar
+  // nos componente ou outros fins
+  //////////////////////////////////////////////
+  // W é a largura atual da tela
+  const w = Dimensions.get("window").width;
+  // H é a altura atual da tela (caso queira usar 90% da altura, utiliza-se
+  // H*0.9 para utilizar o conceito de porcentagem)
+  const h = Dimensions.get("window").height;
   const [produtos, setProdutos] = React.useState([
     {
       titulo: "Biscoito marca 1",
@@ -96,9 +106,9 @@ export function BiscoitosScreen(props: InputRoundProps) {
               style={{
                 backgroundColor: "#fff",
                 flexDirection: "row",
-                width: "85vw",
-                height: 170,
-                margin: "2vw",
+                width: w*0.85,
+                height: 200,
+                margin: w*0.02,
                 padding: 10,
                 borderRadius: 10,
                 shadowColor: "#000",

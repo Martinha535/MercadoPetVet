@@ -96,7 +96,7 @@ export function ProdutoScreen(props: ProdutoScreenProps) {
         </View>
         <Text
           style={{
-            width: "90%",
+            width: w*0.9,
             fontSize: 17,
             textAlign: "center",
             fontWeight: "bold",
@@ -133,7 +133,7 @@ export function ProdutoScreen(props: ProdutoScreenProps) {
           //onChangeText={handleChange("senha")}
           style={{
             backgroundColor: "white",
-            width: "90%",
+            width: w*0.9,
             height: 60,
             marginTop: 10,
             padding: 20,
@@ -144,6 +144,7 @@ export function ProdutoScreen(props: ProdutoScreenProps) {
           placeholder="_____-__"
           
         />
+        
         <TouchableOpacity
           style={{
             justifyContent: "center",
@@ -153,13 +154,14 @@ export function ProdutoScreen(props: ProdutoScreenProps) {
             marginTop: 10,
             backgroundColor: "rgb(187,136,59)",
             borderRadius: 15,
+            zIndex:3
           }}
-          onPress={() => {
+          
+        >
+          <Text onPress={() => {
             //@ts-ignore
             nav.navigate("compra")
-          }}
-        >
-          <Text>Comprar</Text>
+          }}>Comprar</Text>
         </TouchableOpacity>
       </View>
     </View>

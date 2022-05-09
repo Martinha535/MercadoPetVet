@@ -15,8 +15,9 @@ const Stack = createNativeStackNavigator();
 export const NavegacaoPrincipal = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="principal" component={PrincipalScreen} />
       <Stack.Screen name="home" component={HomeScreen} />
-      <Stack.Screen name="principal" component={PrincipalScreen} />
+      
       <Stack.Screen name="acessorios" component={AcessoriosScreen} />
       <Stack.Screen name="biscoitos" component={BiscoitosScreen} />
       <Stack.Screen name="racoes" component={RacoesScreen} />
