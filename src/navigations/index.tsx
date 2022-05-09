@@ -15,13 +15,14 @@ const Stack = createNativeStackNavigator();
 export const NavegacaoPrincipal = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen name="principal" component={PrincipalScreen} />
       <Stack.Screen name="acessorios" component={AcessoriosScreen} />
       <Stack.Screen name="biscoitos" component={BiscoitosScreen} />
       <Stack.Screen name="racoes" component={RacoesScreen} />
       <Stack.Screen name="produto" component={ProdutoScreen} />
       <Stack.Screen name="compra" component={CompraScreen} />
-      <Stack.Screen name="home" component={HomeScreen} />
+
       <Stack.Screen name="cadastro" component={CadastroScreen} />
     </Stack.Navigator>
   </NavigationContainer>
