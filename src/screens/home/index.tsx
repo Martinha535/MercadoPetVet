@@ -10,7 +10,7 @@ import {
   Platform,
   Vibration,
 } from "react-native";
-
+import * as firebase from "firebase/auth";
 //import Button from '../Components/Button';
 //import { useForm } from 'react-hook-form';
 import * as Yup from "yup";
@@ -25,36 +25,55 @@ export function HomeScreen(props: InputRoundProps) {
   //let senha:'string' = '';
   // Função para acessar
   const enviar = async (dados: any) => {
-    if (dados.email.split("@").length == 2) {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+    // if (dados.email.split("@").length == 2) {
 
-      if (dados.email == "teste@teste.com" && dados.senha == "123456") {
-        if (Platform.OS == "android")
-          ToastAndroid.show("logado com sucesso!", ToastAndroid.BOTTOM);
-        else if (Platform.OS == "ios")
-          Alert.alert("Sucesso!", "Você está conectado!");
-        else {
-          alert("Sucesso! Você está conectado!");
-        }
-        //@ts-ignore
-        nav.navigate("principal");
-      } else if (Platform.OS == "android") {
-        Vibration.vibrate([100, 100]);
-        ToastAndroid.show("E-mail ou senha incorretos!", ToastAndroid.BOTTOM);
-      } else if (Platform.OS == "ios")
-        Alert.alert("Erro!", "E-mail ou senha incorretos!");
-      else {
-        alert("E-mail ou senha incorretos!");
-      }
-    } else {
+    //await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      await firebase.signInWithEmailAndPassword(
+        firebase.getAuth(),
+        dados.email,
+        dados.senha
+      );
+      //@ts-ignore
+      nav.navigate("principal");
+    } catch (e) {
       if (Platform.OS == "android") {
         Vibration.vibrate([100, 100]);
-        ToastAndroid.show("E-mail inválido!", ToastAndroid.BOTTOM);
-      } else if (Platform.OS == "ios") Alert.alert("Erro!", "E-mail inválido!");
+        ToastAndroid.show(e.toString(), ToastAndroid.BOTTOM);
+      } else if (Platform.OS == "ios") Alert.alert("Erro!", e.toString());
       else {
-        alert("E-mail inválido!");
+        alert(e.toString());
       }
     }
+
+    //   if (dados.email == "teste@teste.com" && dados.senha == "123456") {
+    //     if (Platform.OS == "android")
+    //       ToastAndroid.show("logado com sucesso!", ToastAndroid.BOTTOM);
+    //     else if (Platform.OS == "ios")
+    //       Alert.alert("Sucesso!", "Você está conectado!");
+    //     else {
+    //       alert("Sucesso! Você está conectado!");
+    //     }
+    //     //@ts-ignore
+    //     nav.navigate("principal");
+    //   } else if (Platform.OS == "android") {
+    //     Vibration.vibrate([100, 100]);
+    //     ToastAndroid.show("E-mail ou senha incorretos!", ToastAndroid.BOTTOM);
+    //   } else if (Platform.OS == "ios")
+    //     Alert.alert("Erro!", "E-mail ou senha incorretos!");
+    //   else {
+    //     alert("E-mail ou senha incorretos!");
+    //   }
+    // } else {
+    //   if (Platform.OS == "android") {
+    //     Vibration.vibrate([100, 100]);
+    //     ToastAndroid.show("E-mail inválido!", ToastAndroid.BOTTOM);
+    //   } else if (Platform.OS == "ios") Alert.alert("Erro!", "E-mail inválido!");
+    //   else {
+    //     alert("E-mail inválido!");
+    //   }
+    // }
+    // };
   };
   return (
     <View
