@@ -21,13 +21,8 @@ export interface InputRoundProps {}
 
 export function HomeScreen(props: InputRoundProps) {
   const nav = useNavigation();
-  //let email:'string' ='';
-  //let senha:'string' = '';
-  // Função para acessar
   const enviar = async (dados: any) => {
-    // if (dados.email.split("@").length == 2) {
-
-    //await new Promise((resolve) => setTimeout(resolve, 2000));
+  
     try {
       await firebase.signInWithEmailAndPassword(
         firebase.getAuth(),
@@ -36,7 +31,7 @@ export function HomeScreen(props: InputRoundProps) {
       );
       //@ts-ignore
       nav.navigate("principal");
-    } catch (e) {
+    } catch (e:any) {
       if (Platform.OS == "android") {
         Vibration.vibrate([100, 100]);
         ToastAndroid.show(e.toString(), ToastAndroid.BOTTOM);
@@ -46,34 +41,7 @@ export function HomeScreen(props: InputRoundProps) {
       }
     }
 
-    //   if (dados.email == "teste@teste.com" && dados.senha == "123456") {
-    //     if (Platform.OS == "android")
-    //       ToastAndroid.show("logado com sucesso!", ToastAndroid.BOTTOM);
-    //     else if (Platform.OS == "ios")
-    //       Alert.alert("Sucesso!", "Você está conectado!");
-    //     else {
-    //       alert("Sucesso! Você está conectado!");
-    //     }
-    //     //@ts-ignore
-    //     nav.navigate("principal");
-    //   } else if (Platform.OS == "android") {
-    //     Vibration.vibrate([100, 100]);
-    //     ToastAndroid.show("E-mail ou senha incorretos!", ToastAndroid.BOTTOM);
-    //   } else if (Platform.OS == "ios")
-    //     Alert.alert("Erro!", "E-mail ou senha incorretos!");
-    //   else {
-    //     alert("E-mail ou senha incorretos!");
-    //   }
-    // } else {
-    //   if (Platform.OS == "android") {
-    //     Vibration.vibrate([100, 100]);
-    //     ToastAndroid.show("E-mail inválido!", ToastAndroid.BOTTOM);
-    //   } else if (Platform.OS == "ios") Alert.alert("Erro!", "E-mail inválido!");
-    //   else {
-    //     alert("E-mail inválido!");
-    //   }
-    // }
-    // };
+
   };
   return (
     <View
