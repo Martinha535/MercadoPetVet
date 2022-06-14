@@ -37,6 +37,7 @@ export function CadastroScreen(props: InputRoundProps) {
           dados.email,
           dados.senha
         );
+        //@ts-ignore
         const documento = doc(db, "Users", firebase.getAuth().currentUser.uid);
         //await firebase.firestore.collection("Users").doc(firebase.getAuth().currentUser.uid).update()
         setDoc(documento, {
