@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "706852489813",
+    "project_id": "mercadopetvet",
+    "storage_bucket": "mercadopetvet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706852489813:android:2121d6bd99b545c618e2dc",
+        "android_client_info": {
+          "package_name": "com.martinha.MercadoPetVet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706852489813-l7ceriardp2ajupvron0083u1mm89754.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7ly9UTSkcj-VRPOM7TYg7cDt6VgtNlYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "706852489813-l7ceriardp2ajupvron0083u1mm89754.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

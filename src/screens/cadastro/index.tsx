@@ -17,42 +17,44 @@ import {
 import * as Yup from "yup";
 import { Formik, validateYupSchema } from "formik";
 import { useNavigation } from "@react-navigation/native";
-import * as firebase from "firebase/auth";
-import { doc, setDoc, getFirestore, collection } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+import { doc, setDoc, getFirestore } from "firebase/firestore";
+
 export interface InputRoundProps {
   // teste
 }
 
 export function CadastroScreen(props: InputRoundProps) {
   let db = getFirestore();
+  const auth = getAuth();
 
   const nav = useNavigation();
 
   // Função para acessar
   const enviar = async (dados: any) => {
+    let db = getFirestore();
     if (dados.senha == dados.senha2) {
-      try {
-        await firebase.createUserWithEmailAndPassword(
-          firebase.getAuth(),
-          dados.email,
-          dados.senha
-        );
-        //@ts-ignore
-        const documento = doc(db, "Users", firebase.getAuth().currentUser.uid);
-        //await firebase.firestore.collection("Users").doc(firebase.getAuth().currentUser.uid).update()
-        setDoc(documento, {
-          nome: dados.nomeCompleto,
-          endereco: dados.endereco,
-          complemento: dados.complemento,
-          bairro: dados.bairro,
-          cep: dados.cep,
-          cidade: dados.cidade,
-          uf: dados.uf
-        });
-        alert("cadastrou");
-      } catch (erro) {
-        console.error(erro);
-      }
+      createUserWithEmailAndPassword(auth, dados.email, dados.senha)
+        //Opcionalmente para saber se criou com sucesso
+        .then((usuario) => {
+          //@ts-ignore
+          const seuDoc = doc(db, "Users", getAuth().currentUser.uid);
+          setDoc(seuDoc, {
+            nome: dados.nomeCompleto,
+            endereco: dados.endereco,
+            complemento: dados.complemento,
+            bairro: dados.bairro,
+            cep: dados.cep,
+            cidade: dados.cidade,
+            uf: dados.uf,
+          });
+
+       
+          alert("cadastrou");
+        })
+        //Opcionalmente para se falhou ao criar usuário
+        .catch((error) => console.log(error));
     } else {
       if (Platform.OS == "android") {
         Vibration.vibrate([100, 100]);
@@ -64,49 +66,6 @@ export function CadastroScreen(props: InputRoundProps) {
       }
     }
 
-    // if (dados.email.split("@").length == 2) {
-    //   if (dados.senha >= 6) {
-    //     if (dados.senha2 === dados.senha) {
-    //       await new Promise((resolve) => setTimeout(resolve, 2000));
-    //       if (Platform.OS == "android")
-    //         ToastAndroid.show("Cadastrado com sucesso!", ToastAndroid.BOTTOM);
-    //       else if (Platform.OS == "ios")
-    //         Alert.alert("Sucesso!", "Você foi cadastrado!");
-    //       else {
-    //         alert("Sucesso! Você foi cadastrado!");
-    //       }
-    //       //@ts-ignore
-
-    //       nav.navigate("principal");
-    //     } else {
-    //       if (Platform.OS == "android")
-    //         ToastAndroid.show("As senhas não conferem!", ToastAndroid.BOTTOM);
-    //       else if (Platform.OS == "ios")
-    //         Alert.alert("ERRO!", "As senhas não conferem!");
-    //       else {
-    //         alert("Erro, As senhas não conferem!");
-    //       }
-    //     }
-    //   } else {
-    //     if (Platform.OS == "android")
-    //       ToastAndroid.show(
-    //         "A senha requer no mínimo 6 caracteres",
-    //         ToastAndroid.BOTTOM
-    //       );
-    //     else if (Platform.OS == "ios")
-    //       Alert.alert("ERRO!", "A senha requer ao mínimo 6 caracteres!");
-    //     else {
-    //       alert("Erro, A senha requer ao mínimo 6 caracteres");
-    //     }
-    //   }
-    // } else {
-    //   if (Platform.OS == "android")
-    //     ToastAndroid.show("ERRO! E-mail inválido!", ToastAndroid.BOTTOM);
-    //   else if (Platform.OS == "ios") Alert.alert("ERRO!", "E-mail inválido!");
-    //   else {
-    //     alert("Erro, E-mail Inválido");
-    //   }
-    // }
   };
 
   //1 sempre é a página inicial

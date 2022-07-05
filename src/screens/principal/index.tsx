@@ -133,6 +133,24 @@ export function PrincipalScreen(props: InputRoundProps) {
           >
             <Text>Acessórios</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "rgb(248, 248, 248)",
+              display: "flex",
+              height: 70,
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              borderTopWidth: 1,
+              borderBottomWidth: 1,
+            }}
+            onPress={() => {
+              //@ts-ignore
+              nav.navigate("listaProdutos");
+            }}
+          >
+            <Text>Lista de produtos</Text>
+          </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={{

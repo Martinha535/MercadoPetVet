@@ -8,6 +8,8 @@ import { BiscoitosScreen } from "../screens/biscoitos";
 import { AcessoriosScreen } from "../screens/acessorios";
 import { ProdutoScreen } from "../screens/produto";
 import { CompraScreen } from "../screens/compra";
+import { ListaProdutosScreen } from "../screens/produtos/listar";
+import { CadastraProdutosScreen } from "../screens/produtos/cadastrar";
 //import { NavegacaoDrawer } from "./drawer-menu";
 
 const Stack = createNativeStackNavigator();
@@ -23,7 +25,8 @@ export const NavegacaoPrincipal = () => (
       <Stack.Screen name="racoes" component={RacoesScreen} />
       <Stack.Screen name="produto" component={ProdutoScreen} />
       <Stack.Screen name="compra" component={CompraScreen} />
-
+      <Stack.Screen name="listaProdutos" component={ListaProdutosScreen} />
+      <Stack.Screen name="cadastrarProdutos" component={CadastraProdutosScreen} />
       <Stack.Screen name="cadastro" component={CadastroScreen} />
     </Stack.Navigator>
   </NavigationContainer>

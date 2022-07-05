@@ -10,38 +10,44 @@ import {
   Platform,
   Vibration,
 } from "react-native";
-import * as firebase from "firebase/auth";
+import {
+  AdMobBanner, //Banner
+} from "expo-ads-admob";
+
 //import Button from '../Components/Button';
 //import { useForm } from 'react-hook-form';
 import * as Yup from "yup";
 import { Formik, validateYupSchema } from "formik";
 import { useNavigation } from "@react-navigation/native";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export interface InputRoundProps {}
 
 export function HomeScreen(props: InputRoundProps) {
+  const auth = getAuth();
   const nav = useNavigation();
   const enviar = async (dados: any) => {
   
-    try {
-      await firebase.signInWithEmailAndPassword(
-        firebase.getAuth(),
-        dados.email,
-        dados.senha
-      );
-      //@ts-ignore
-      nav.navigate("principal");
-    } catch (e:any) {
-      if (Platform.OS == "android") {
-        Vibration.vibrate([100, 100]);
-        ToastAndroid.show(e.toString(), ToastAndroid.BOTTOM);
-      } else if (Platform.OS == "ios") Alert.alert("Erro!", e.toString());
-      else {
-        alert(e.toString());
-      }
-    }
+    await signInWithEmailAndPassword(auth, dados.email, dados.senha)
+      .then((usuarioLogado) => {
+        //opcional (usuarioLogado -> dados do usuário logado)
+        //@ts-ignore
+        nav.navigate("principal");
+      })
+      .catch((erro) => {
+        //opcional (erro -> mensagem de erro)
+        if (Platform.OS == "android") {
+          Vibration.vibrate([100, 100]);
+          ToastAndroid.show(erro, ToastAndroid.BOTTOM);
+        } else if (Platform.OS == "ios") {
+          Alert.alert("Erro!", erro);
+        }
+        else {
+          alert(erro.toString());
+        }
+      });
 
-
+    //@ts-ignore
   };
   return (
     <View
@@ -160,6 +166,10 @@ export function HomeScreen(props: InputRoundProps) {
           <Text>Crie agora!</Text>
         </TouchableOpacity>
       </Text>
+      <AdMobBanner
+        bannerSize="fullBanner"
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+      />
     </View>
   );
 }
